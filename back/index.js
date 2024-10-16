@@ -1,17 +1,20 @@
 const express = require("express");
 const axios = require("axios");
+const http = require("http");
+const WebSocket = require("ws");
+const mqtt = require("mqtt");
+const fetch = require("node-fetch");
+
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const TILE_SERVER_URL = "https://cdn.digitransit.fi/map/v2/hsl-map";
 const API_KEY = process.env.API_KEY;
 
-const mqtt = require("mqtt");
-const WebSocket = require("ws");
+const server = http.createServer(app);
+
+const wss = new WebSocket.Server({ server });
+
 const mqttClient = mqtt.connect("mqtts://mqtt.hsl.fi:8883");
-const wss = new WebSocket.Server({ port: 8080, host: "0.0.0.0" });
-
-const fetch = require("node-fetch");
-
 const routedetails = {};
 const laststops = {};
 
@@ -146,6 +149,6 @@ app.get("/tiles/:z/:x/:y", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

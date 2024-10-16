@@ -4,8 +4,9 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-const HOST_ADDRESS = import.meta.env.VITE_HOST_ADDRESS || "localhost";
-const TILE_SERVER_URL = `http://${HOST_ADDRESS}:3000/tiles/{z}/{x}/{y}`;
+const HOST_ADDRESS = import.meta.env.VITE_HOST_ADDRESS || "localhost:3000";
+const protocol = window.location.protocol === "https:" ? "https://" : "http://";
+const TILE_SERVER_URL = `${protocol}${HOST_ADDRESS}/tiles/{z}/{x}/{y}`;
 
 const opers = {
   12: "Koiviston Auto",

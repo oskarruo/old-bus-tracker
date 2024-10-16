@@ -5,8 +5,7 @@ import { ChakraProvider, Box, Text, Accordion, Link } from "@chakra-ui/react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { FaGithub } from "react-icons/fa";
 
-const HOST_ADDRESS = import.meta.env.VITE_HOST_ADDRESS || "localhost";
-const WEBSOCKET_URL = `ws://${HOST_ADDRESS}:8080`;
+const HOST_ADDRESS = import.meta.env.VITE_HOST_ADDRESS || "localhost:3000";
 
 const theme = createTheme();
 
@@ -15,7 +14,9 @@ function App() {
   const busTimers = useRef({});
 
   useEffect(() => {
-    const ws = new WebSocket(WEBSOCKET_URL);
+    const wsProtocol =
+      window.location.protocol === "https:" ? "wss://" : "ws://";
+    const ws = new WebSocket(wsProtocol + HOST_ADDRESS);
 
     ws.onmessage = async (event) => {
       const msg = JSON.parse(event.data);
@@ -131,7 +132,7 @@ function App() {
         </Box>
         <Box
           as="a"
-          href="https://github.com/"
+          href="https://github.com/oskarruo/old-bus-tracker"
           target="_blank"
           position="absolute"
           bottom={4}
