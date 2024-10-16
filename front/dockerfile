@@ -1,0 +1,27 @@
+FROM node:18 AS build
+
+WORKDIR /
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+ARG VITE_HOST_ADDRESS
+ENV VITE_HOST_ADDRESS=${VITE_HOST_ADDRESS}
+
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /dist /usr/share/nginx/html
+
+ARG SERVER_NAME
+ENV SERVER_NAME=${SERVER_NAME}
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
