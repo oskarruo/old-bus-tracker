@@ -14,4 +14,3 @@ services:
       - "80:80"
     environment:
       - VITE_HOST_ADDRESS=backend
-      - SERVER_NAME=localhost
