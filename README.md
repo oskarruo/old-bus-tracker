@@ -1,4 +1,4 @@
-# [Old Bus Tracker](https://old-bus-tracker.onrender.com/)
+# [Old Bus Tracker](http://35.228.203.232/)
 
 Old Bus Tracker is an application for tracking old, non-HSL-colored buses in the Helsinki region. It uses the [Digitransit's API](https://digitransit.fi/en/developers/apis/1-routing-api/) to provide real-time position updates and route details for the buses. Users can view each bus's progress along its route and see its current location on a map. Bus color information is manually gathered from [kooen202](https://www.kooen202.com/39920).
 
